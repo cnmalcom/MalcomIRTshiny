@@ -1,0 +1,22 @@
+---
+title: "IRT Simulated Data"
+author: "Cassie Malcom"
+date: "1/31/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages("irtoys")
+```
+
+```{r}
+library(irtoys)
+```
+
+```{r}
+
+```
