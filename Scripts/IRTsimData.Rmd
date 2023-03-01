@@ -17,6 +17,33 @@ install.packages("irtoys")
 library(irtoys)
 ```
 
-```{r}
+## Exploring how the function works
 
+```{r}
+pa <- cbind(runif(20,.8,2), runif(20,-2.4,2.4), rep(0,50))
+head(pa)
 ```
+
+```{r}
+rs <- irtoys::sim(ip=pa, x=rnorm(1000))
+head(rs)
+```
+
+Simulated Dichotomous Data
+```{r}
+#item discrimination (needs to be fixed to 1 for Rasch model), item difficulty, and number of items
+iSim1 <- cbind(runif(20,1,1), runif(20,0,1), rep(0,20))
+head(pa)
+```
+
+```{r}
+iSim2 <- irtoys::sim(ip=iSim1, x=rnorm(30))
+head(iSim2)
+```
+
+```{r}
+write.matrix(iSim2,file="irtSIM.csv")
+```
+
+
+

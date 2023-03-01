@@ -1,0 +1,137 @@
+---
+title: "Item Response Theory (IRT) for Teachers"
+output: 
+  flexdashboard::flex_dashboard:
+    theme:
+      bootswatch: minty
+      base_font:
+        google: Inknut Antiqua
+      code_font:
+        google: Open Sans
+    orientation: columns
+    vertical_layout: fill
+  css: CM_css.css
+runtime: shiny
+---
+<style type="text/css">
+  li {font-size: 12px;}
+</style>
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(pacman)
+
+pacman::p_load("knitr", "TAM", "WrightMap", "RColorBrewer", "ltm", "psych", "flexdashboard", "leaflet", thematic, shiny, shinyalert, irtoys, xtable, tinytex)
+
+thematic::thematic_rmd()
+```
+
+# The Rasch Model
+
+## **Column A** {style="black"}
+
+**Introduction**
+
+*For this tutorial and associated Shiny app, we will be looking at dichotomous items only, which are scored 0 for incorrect and 1 for correct.*
+
+The Rasch model is used to explain the relationship between a latent trait, such as science learning, and a student's performance on a manifest variable, which is an item on a related assessment. The unit of analysis in this model is the item.
+
+The equation for the Rasch model and key assumptions regarding its use are shown in the middle column. Below is an item characteristic curve, which shows the probability of getting an item right based on a student's ability level.
+
+Reinsert item characteristic curve (ICC) once fixed.
+
+Hold for note on references...
+
+```{r}
+
+```
+
+## Key Facts
+
+### Equations  {style="blue"}
+
+```{r}
+ui <- fluidPage(
+  withMathJax(),
+  helpText('The Equation for a Rasch Model'),
+  uiOutput('ex1'),
+  textOutput("PL"),
+  actionButton(inputId = "symbols", label = "Click here")
+)
+server <- function(input, output, session) {
+  output$ex1 <- renderUI({
+    withMathJax(helpText('$$p\\left(x_j = 1|\\theta,\\alpha,\\delta_j\\right) = \\frac{e^{(\\theta-\\delta_j)}}{1 + e^{(\\theta-\\delta_j)}}$$'))
+  })
+  observeEvent(input$symbols, {
+        showModal(modalDialog(
+          title = "Symbol Definitions",
+          tags$head(tags$style("#shiny-modal img {max-width: 100%;}")),
+           tags$img(
+            src = base64enc::dataURI(file = "/Users/cassiemalcom/Desktop/CM2020/23_Winter Term Classes/EDLD 640 DS Cap/MalcomIRTshiny/Images/2023-02-28_14-10-27.jpg", mime = "image/jpeg"),
+            alt = "Table with statistical symbols"),
+          easyClose = TRUE,
+          footer = NULL
+        ))
+  })
+  output$PL <- renderText({
+    paste("Note: The IPL equation only differs from the Rasch by not constraining item discrimination (α) to 1.")
+  })
+}
+shinyApp(ui = ui, server = server)
+
+```
+
+### Assumptions
+
+1.  Invariance - the measurement tool allows item parameters to be estimated from any location on the item response curve indicating the measurement tool is independent of what's measured
+2.  Local independence - student responses to different items are independent of each other on a student's location (ability level)
+3.  Monotonicity - as the latent trait level increases the probability of a correct response increases
+4.  Unidimensionality - the model assumes only the dominant latent trait is measured and that this trait impacts item responses, which indicates that observations about the manifest variables are a function of a continuous single latent trait
+
+```{r}
+
+```
+
+### Resources
+
+Implementation of IRT in the Classroom: <https://www.researchgate.net/publication/333399406_Determining_Test_Length_Precision_for_Economics_Testing_The_Implementation_of_IRT_Model_for_Classroom_Assessment>
+
+```{r}
+
+```
+
+## Interpreting Data  {.tabset data-width="650"}
+
+```{r sd1, include=FALSE}
+#item discrimination (needs to be fixed to 1 for Rasch model), item difficulty, and number of items
+iSim1 <- cbind(runif(20,1,1), runif(20,0,1), rep(0,20))
+head(iSim1)
+```
+
+```{r sd2, include=FALSE}
+iSim2 <- irtoys::sim(ip=iSim1, x=rnorm(30))
+head(iSim2)
+```
+
+### Table 1
+
+```{r}
+
+```
+
+### Chart A
+
+```{r}
+
+```
+
+### Chart B
+
+```{r}
+
+```
+
+Note: The table and graphics use simulated dichotomous data in a matrix format.
+
+# Run IRT
