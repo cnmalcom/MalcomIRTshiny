@@ -16,43 +16,11 @@ pacman::p_load(TAM, WrightMap, RColorBrewer, ltm, psych)
 
 ## Data Set Introduction
 
-Students worldwide "endorsed" their opinions on collaboration traits using a survey instrument. The associated data set is part of the 2015 OECD PISA and is a subset of the countries. The subset consists of the full Netherlands representative sample (representative by OECD terms) of 5,355 high school 15-year-old students. These students responded to 8 survey questions that were designed to consider some aspects of the students' attitudes about traits supposedly involved in collaboration, according to the OECD framework (construct). A much larger data set and the full code book for all countries and many more variables from the 2015 student questionnaire are also available at the OECD website. 
 
-Here are the survey questions:
 
-Country ID is in the first column (528 for the Netherlands, all cases here)
 
-Prompt for the following items: To what extent do you disagree or agree with the following statements about yourself (Part ST082 of Student Survey)?
 
-1. I prefer working as part of a team to working alone. (Item ST082Q01NA)
-
-2. I am a good listener. (Item ST082Q02NA)
-
-3. I enjoy seeing my classmates be successful. (Item ST082Q03NA)
-
-4. I take into account what others are interested in. (Item ST082Q08NA)
-
-5. I find that teams make better decisions than individuals. (Item ST082Q09NA)
-
-6. I enjoy considering different perspectives. (Item ST082Q12NA)
-
-7. I find that teamwork raises my own efficiency. (Item ST082Q13NA)
-
-8. I enjoy cooperating with peers. (Item ST082Q14NA)
-
-Same Likert scale for all survey indicators:
-
-1 = "Strongly disagree"
-
-2 = "Disagree"
-
-3 = "Agree"
-
-4= "Strongly Agree"
-
-5 through 9 = missing (different codes for different types of missingness)
-
-## Import the Data for Netherlands:
+## Import the Data for :
 ```{r import_data}
 netherlands <- read.csv("", stringsAsFactors=FALSE)
 ```
@@ -76,7 +44,7 @@ str(netherlands2)
 ```
 
 Histograms of the 8 Items
-Students tended to respond more with "disagree" and "agree".
+
 ```{r histograms}
 par(mfrow = c(4,2))
 
@@ -110,7 +78,7 @@ head(netherlands3)
 
 ## Checking the Amount of Missing Data
 
-Counts of each score per items 1 through 8. Scores of 7 & 9 indicate missing data.
+
 ```{r missingness}
 table(netherlands2$Team)
 table(netherlands2$Listen)
@@ -245,7 +213,7 @@ plot(mod1_Netherlands)
 
 ##
 
-![](/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/Ngraph1.png)
+![](/Users/cassiemalcom/Desktop/CM2020/)
 
 # Generate SEM plot
 
@@ -337,23 +305,23 @@ dotchart(t(tthresh), pch=19)
 
 ##
 
-![](/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/dotchart.png)
+![](/Users/cassiemalcom/Desktop/CM2020/)
 
 You may want to plot the thresholds and person ability on the same scale:
 ```{r plotting_ability_and_tthreshold}
-png(file = "/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/hist_PersonAbility.png")
+png(file = "")
 hist(PersonAbility,xlim=c(-3,3),breaks=20)
-png(file = "/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/hist_thresholds.png")
+png(file = "")
 hist(tthresh,xlim=c(-3,3),breaks=20)
 ```
 
 ##
 
-![](/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/hist_PersonAbility.png)
+![](/Users/cassiemalcom/Desktop/CM2020/)
 
 ##
 
-![](/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/hist_thresholds.png)
+![](/Users/cassiemalcom/Desktop/)
 
 Here from the histograms, you can see that the thresholds are in general "easier" to achieve or endorse than where the people are estimated on the latent trait, for this data set. So the alignment is not great. Some "harder" to achieve or endorse items would probably provide more information on the persons in this case. This comparison can be see more easily in the Wright map, where the persons and items are plotted together and on the same scale.
 
@@ -362,13 +330,13 @@ Here from the histograms, you can see that the thresholds are in general "easier
 The Wright Map is also called an Item-Persons map. It can be easier to understand the results of a calibration if the person and item results are displayed together like this, possible for Rasch family models and 1PL.
 
 ```{r generate_WrightMap}
-png(file = "/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/WrightMap1.png")
+png(file = "")
 wrightMap(PersonAbility,tthresh)
 ```
 
 ##
 
-![](/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/WrightMap1.png)
+![](/Users/cassiemalcom/Desktop/CM2020/)
 
 As usual for R plots, there are many options to customize your WrightMap and make it more readable. These include graph axis labels, changing size and types of symbols, and adding item plotting labels. Here is an example, Set2 is one of color blind friendly palettes. 
 
@@ -376,7 +344,7 @@ As usual for R plots, there are many options to customize your WrightMap and mak
 #itemlevelcolors <- matrix(rep(brewer.pal(4, "Set1"), 10), byrow = TRUE, ncol = 4)
 
 itemlevelcolors <- matrix(rep(brewer.pal(4, "Set2"), 8), byrow = TRUE, ncol = 4)
-png(file = "/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots//WrightMap2.png")
+png(file = "")
 wrightMap(PersonAbility,tthresh,
           show.thr.lab = FALSE,
           thr.sym.cex = 2.5,
@@ -391,7 +359,7 @@ wrightMap(PersonAbility,tthresh,
 
 ##
 
-![](/Users/cassiemalcom/Desktop/CM2020/22_Fall Term Classes/EDLD 661 IRT/EDLD661_r/Plots/WrightMap2.png)
+![](/Users/cassiemalcom/Desktop/CM2020/)
 
 # Running 2PL and 3PL models in TAM
 
