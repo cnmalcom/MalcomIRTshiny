@@ -2,6 +2,8 @@
 title: "Item Response Theory (IRT) for Teachers"
 output: 
   flexdashboard::flex_dashboard:
+    fig_mobile: TRUE
+    social: [ "twitter", "facebook", "linkedin" ]
     theme:
       bootswatch: minty
       base_font:
