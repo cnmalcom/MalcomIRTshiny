@@ -58,8 +58,9 @@ ui <- fluidPage(
   withMathJax(),
   helpText('The Equation for a Rasch Model'),
   uiOutput('ex1'),
-  textOutput("PL"),
-  actionButton(inputId = "symbols", label = "Click here")
+  htmlOutput("PL"),
+  actionButton(inputId = "symbols", label = "Click here"),
+  htmlOutput("PL2")
 )
 server <- function(input, output, session) {
   output$ex1 <- renderUI({
@@ -76,9 +77,14 @@ server <- function(input, output, session) {
           footer = NULL
         ))
   })
-  output$PL <- renderText({
-    paste("Note: The IPL equation only differs from the Rasch by not constraining item discrimination (α) to 1.")
+  output$PL <- renderUI({
+    HTML("<br/> Note: The IPL equation only differs from the Rasch by not constraining item discrimination (α) to 1. <br/>")
   })
+  
+  output$PL2 <- renderUI({
+        HTML("<br/> <a href='https://www.researchgate.net/publication/333399406_Determining_Test_Length_Precision_for_Economics_Testing_The_Implementation_of_IRT_Model_for_Classroom_Assessment'> Implementation of IRT in the Classroom </a>")
+  })
+
 }
 shinyApp(ui = ui, server = server)
 
