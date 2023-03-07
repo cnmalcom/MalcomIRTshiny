@@ -4,32 +4,27 @@ output:
   flexdashboard::flex_dashboard:
     fig_mobile: TRUE
     social: [ "twitter", "facebook", "linkedin" ]
-    css: CM_css.css
+    theme:
+      bootswatch: minty
+      base_font:
+        google: Inknut Antiqua
+      code_font:
+        google: Open Sans
     orientation: columns
     vertical_layout: fill
+  css: CM_css.css
 runtime: shiny
+---
+<style type="text/css">
+  li {font-size: 12px;}
+</style>
 ---
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(pacman)
 
-pacman::p_load("knitr", 
-               "TAM", 
-               "WrightMap", 
-               "RColorBrewer", 
-               "ltm", 
-               "psych", 
-               "flexdashboard", 
-               "leaflet", 
-               "thematic", 
-               "shiny", 
-               "shinyalert", 
-               "irtoys", 
-               "xtable", 
-               "tinytex",
-               "shinydashboard",
-               "shinyWidgets")
+pacman::p_load("knitr", "TAM", "WrightMap", "RColorBrewer", "ltm", "psych", "flexdashboard", "leaflet", thematic, shiny, shinyalert, irtoys, xtable, tinytex)
 
 thematic::thematic_rmd()
 ```
@@ -63,9 +58,8 @@ ui <- fluidPage(
   withMathJax(),
   helpText('The Equation for a Rasch Model'),
   uiOutput('ex1'),
-  htmlOutput("PL"),
-  actionButton(inputId = "symbols", label = "Click here"),
-  htmlOutput("PL2"),
+  textOutput("PL"),
+  actionButton(inputId = "symbols", label = "Click here")
 )
 server <- function(input, output, session) {
   output$ex1 <- renderUI({
@@ -82,14 +76,9 @@ server <- function(input, output, session) {
           footer = NULL
         ))
   })
-  output$PL <- renderUI({
-    HTML("<br/> Note: The IPL equation only differs from the Rasch by not constraining item discrimination (α) to 1. <br/>")
+  output$PL <- renderText({
+    paste("Note: The IPL equation only differs from the Rasch by not constraining item discrimination (α) to 1.")
   })
-  
-  output$PL2 <- renderUI({
-        HTML("<br/> <a href='https://www.researchgate.net/publication/333399406_Determining_Test_Length_Precision_for_Economics_Testing_The_Implementation_of_IRT_Model_for_Classroom_Assessment'> Implementation of IRT in the Classroom </a>")
-  })
-
 }
 shinyApp(ui = ui, server = server)
 
