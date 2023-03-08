@@ -44,9 +44,11 @@ The Rasch model is used to explain the relationship between a latent trait, such
 The equation for the Rasch model and key assumptions regarding its use are shown in the middle column. Below is an item characteristic curve, which shows the probability of getting an item right based on a student's ability level.
 
 
+
 Hold for note on references...
 
 Note: The table and graphics use simulated dichotomous data in a matrix format.
+
 
 ```{r}
 
@@ -54,15 +56,19 @@ Note: The table and graphics use simulated dichotomous data in a matrix format.
 
 ## Key Facts
 
+
 ### Equations
+
 
 ```{r}
 ui <- fluidPage(
   withMathJax(),
   helpText('The Equation for a Rasch Model'),
   uiOutput('ex1'),
+
   textOutput("PL"),
   actionButton(inputId = "symbols", label = "Click here")
+
 )
 server <- function(input, output, session) {
   output$ex1 <- renderUI({
@@ -79,6 +85,7 @@ server <- function(input, output, session) {
           footer = NULL
         ))
   })
+
   output$PL <- renderText({
     paste("Note: The IPL equation only differs from the Rasch by not constraining item discrimination (α) to 1.")
   })
@@ -94,6 +101,7 @@ shinyApp(ui = ui, server = server)
 3.  Monotonicity - as the latent trait level increases the probability of a correct response increases
 4.  Unidimensionality - the model assumes only the dominant latent trait is measured and that this trait impacts item responses, which indicates that observations about the manifest variables are a function of a continuous single latent trait
 
+
 ### Resources
 
 [Implementation of IRT in the Classroom](https://www.researchgate.net/publication/333399406_Determining_Test_Length_Precision_for_Economics_Testing_The_Implementation_of_IRT_Model_for_Classroom_Assessment)
@@ -103,22 +111,26 @@ Simulated Data File
 # embed a single file
 
 xfun::embed_file('/Users/cassiemalcom/Desktop/CM2020/23_Winter Term Classes/EDLD 640 DS Cap/MalcomIRTshiny/Data/irtSIM.csv')
+
 ```
 
 ## Interpreting Data  {.tabset data-width="650"}
 
 ```{r sd1, include=FALSE}
 #item discrimination (needs to be fixed to 1 for Rasch model), item difficulty, and number of items
+
 set.seed(5878)
 iSim1 <- cbind(runif(20,1,1), runif(20,0,1), rep(0,20))
 head(iSim1)
 ```
 
 ```{r sd2, include=FALSE}
+
 set.seed(5878)
 iSim2 <- irtoys::sim(ip=iSim1, x=rnorm(30))
 head(iSim2)
 ```
+
 
 ```{r m1, include=FALSE}
 Rmodel <- tam(iSim2)
@@ -173,5 +185,6 @@ wrightMap(PersonAbility,Tthresh,
           axis.persons = "Person Distribution",
           axis.items   = "Survey Questions")
 ```
+
 
 # Run IRT
