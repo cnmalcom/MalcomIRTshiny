@@ -46,4 +46,7 @@ write.matrix(iSim2,file="irtSIM.csv")
 ```
 
 
+```{r}
+simD <- read.csv("/Users/cassiemalcom/Desktop/CM2020/23_Winter Term Classes/EDLD 640 DS Cap/MalcomIRTshiny/Data/irtSIM.csv", sep = " ")
+```
 
